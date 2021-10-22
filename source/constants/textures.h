@@ -9,7 +9,7 @@ namespace Textures {
 namespace {
 [[maybe_unused]] inline static std::string BRICK() {
   return
-      {R"(E:\Code\comgr\raytracer\resources\textures\bricks.bmp)"};
+      {"resources/textures/bricks.bmp"};
 }
 }
 }

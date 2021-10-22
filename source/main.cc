@@ -30,7 +30,7 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   BitmapRenderer<sRGB, CustomResolution> renderer({480, 480});
 
   renderer.setSampling(1);
-  renderer.setRenderQuality(32);
+  renderer.setRenderQuality(1);
   renderer.setCamera(eye, lookAt);
   renderer.setFov(v_fov);
 
