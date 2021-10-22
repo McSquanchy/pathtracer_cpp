@@ -9,3 +9,7 @@ Scene::Scene(std::initializer_list<TexturedSphere> elements) : m_elements(elemen
 std::vector<TexturedSphere> Scene::elements() {
   return m_elements;
 }
+
+TexturedSphere &Scene::GetObject(int index) {
+  return m_elements.at(index);
+}

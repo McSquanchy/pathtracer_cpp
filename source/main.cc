@@ -15,14 +15,6 @@
 #include "constants/textures.h"
 
 int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
-//  auto tx = std::make_shared<TexturedSphere>(
-//      glm::vec3{-0.6, 0.7, -0.6}, 0.3, Colors::YELLOW(), Colors::BLACK(), Colors::WHITE(),
-//      Textures::BRICK(), TextureType::DIFFUSE
-//  );
-//  std::cout << tx->m_tx->Width() << "x" << tx->m_tx->Height() << "\n";
-//  auto color = tx->m_tx->GetColor(199, 100);
-//  std::cout << "[" << color.x << "," << color.y << "," << color.z << "]\n";
-//  std::cout << tx->m_tx->isDiffuse() << "\n";
   glm::vec3 eye{0, 0, -4};
   glm::vec3 lookAt{0, 0, 6};
   float v_fov = 36;
@@ -30,7 +22,7 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   BitmapRenderer<sRGB, CustomResolution> renderer({480, 480});
 
   renderer.setSampling(1);
-  renderer.setRenderQuality(1);
+  renderer.setRenderQuality(4096);
   renderer.setCamera(eye, lookAt);
   renderer.setFov(v_fov);
 
@@ -43,9 +35,11 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
       TexturedSphere{{0, -1001, 0}, 1000, Colors::WHITE(), Colors::WHITE()},
       TexturedSphere{{-0.6, 0.7, -0.6}, 0.3, Colors::BLACK(), Colors::BLACK(), Colors::BLACK(),
                      Textures::BRICK(), TextureType::DIFFUSE},
-      TexturedSphere{{0.3, 0.4, 0.3}, 0.6, Colors::CYAN(), Colors::BLACK(), Colors::WHITE()},
+      TexturedSphere{{0.3, 0.4, 0.3}, 0.6, Colors::BLACK(), Colors::BLACK(), Colors::BLACK(), Textures::LAVA_DIFFUSE(),
+                     TextureType::DIFFUSE},
   };
 
+//  default_scene.GetObject(7).addTexture(Textures::BRATAN(), TextureType::EMISSIVE);
 //  Scene custom_scene_one{
 //      TexturedSphere{{-1001, 0, 0}, 1000, Colors::MOUNTAIN_MEADOW()},
 //      TexturedSphere{{1001, 0, 0}, 1000, Colors::MOUNTAIN_MEADOW()},

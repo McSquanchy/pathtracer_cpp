@@ -15,6 +15,7 @@ class Scene {
   Scene() = default;
   Scene(std::initializer_list<TexturedSphere> elements);
   std::vector<TexturedSphere> elements();
+  TexturedSphere& GetObject(int index);
  private:
   std::vector<TexturedSphere> m_elements;
 

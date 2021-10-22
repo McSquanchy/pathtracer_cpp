@@ -26,6 +26,7 @@ void BitmapRenderer<T, U>::draw() noexcept {
 
   SDL_RenderClear(this->m_window_renderer.get());
   int percentage = 10;
+  std::default_random_engine engine;
   for (auto x = this->m_sampling / 2; x < this->m_resolution->width(); x += this->m_sampling) {
     for (auto y = this->m_sampling / 2; y < this->m_resolution->height(); y += this->m_sampling) {
       glm::vec2 pixel{x, y};
@@ -38,8 +39,21 @@ void BitmapRenderer<T, U>::draw() noexcept {
                                        this->m_horizontal_fov,
                                        this->m_vertical_fov);
       glm::vec3 finalColor{0, 0, 0};
+      // normal dist
+      std::normal_distribution<float> x_distribution(static_cast<float>(x), 0.5f);
+      std::normal_distribution<float> y_distribution(static_cast<float>(y), 0.5f);
       for (auto i = 0; i < this->m_rays_per_pixel; ++i) {
         finalColor += ComputeColor(this->m_eyeOrigin, ray);
+        float yGauss = y_distribution(engine);
+        float xGauss = x_distribution(engine);
+        pixelRelative = glm::vec2((static_cast<float>(xGauss) / this->m_resolution->width() * 2) - 1,
+                                  ((static_cast<float>(yGauss) / this->m_resolution->height() * 2) - 1));
+        ray = Vectors::CreateEyeRay(this->m_cameraForward,
+                                    this->m_cameraRight,
+                                    this->m_cameraUp,
+                                    pixelRelative,
+                                    this->m_horizontal_fov,
+                                    this->m_vertical_fov);
       }
       finalColor /= this->m_rays_per_pixel;
 
@@ -80,11 +94,12 @@ glm::vec3 BitmapRenderer<T, U>::ComputeColor(glm::vec3 origin, glm::vec3 directi
   float correction = 0.001f;
   hit_point += correction * contact_normal;
   hit_point += correction * -1 * direction;
+
   if (PRNG::RandomNumber(0.0f, 1.0f) < this->m_probability || collider.radius() == 0.0f) {
-    resultingColor = collider.emission();
+    resultingColor = collider.GetEmissiveColor(contact_normal);
   } else {
     auto random_vector = Vectors::GenerateRandomVector(contact_normal);
-    resultingColor = collider.emission()
+    resultingColor = collider.GetEmissiveColor(contact_normal)
         + ((2.0f * static_cast<float>(M_PI)) / (1.0f - this->m_probability)) * glm::dot(random_vector, contact_normal)
             * (collider.BDRF(contact_normal, direction, random_vector) * ComputeColor(hit_point, random_vector));
   }

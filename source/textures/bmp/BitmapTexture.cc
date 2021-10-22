@@ -8,6 +8,7 @@
 #include "BitmapTexture.h"
 
 void BitmapTexture::Read(const char *fp) {
+  m_colors.clear();
   std::ifstream f;
   f.open(fp, std::ios::in | std::ios::binary);
   if (!f.is_open()) {
@@ -45,9 +46,9 @@ void BitmapTexture::Read(const char *fp) {
     for (auto x = 0; x < m_width; ++x) {
       unsigned char color[3];
       f.read(reinterpret_cast<char *>(color), 3);
-      float r = static_cast<float>(glm::pow(color[2] / 255.0f, m_gamma));
-      float g = static_cast<float>(glm::pow(color[1] / 255.0f, m_gamma));
-      float b = static_cast<float>(glm::pow(color[0] / 255.0f, m_gamma));
+      auto r = static_cast<float>(glm::pow(color[2] / 255.0f, m_gamma));
+      auto g = static_cast<float>(glm::pow(color[1] / 255.0f, m_gamma));
+      auto b = static_cast<float>(glm::pow(color[0] / 255.0f, m_gamma));
       m_colors[y * m_width + x] = glm::vec3{r, g, b};
     }
     f.ignore(paddingAmount);
