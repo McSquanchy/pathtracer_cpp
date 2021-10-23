@@ -22,7 +22,7 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
   BitmapRenderer<sRGB, CustomResolution> renderer({480, 480});
 
   renderer.setSampling(1);
-  renderer.setRenderQuality(4096);
+  renderer.setRenderQuality(32);
   renderer.setCamera(eye, lookAt);
   renderer.setFov(v_fov);
 
@@ -33,11 +33,22 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
       TexturedSphere{{0, 0, 1001}, 1000, Colors::GRAY()},
       TexturedSphere{{0, 1001, 0}, 1000, Colors::GRAY()},
       TexturedSphere{{0, -1001, 0}, 1000, Colors::WHITE(), Colors::WHITE()},
-      TexturedSphere{{-0.6, 0.7, -0.6}, 0.3, Colors::BLACK(), Colors::BLACK(), Colors::BLACK(),
-                     Textures::BRICK(), TextureType::DIFFUSE},
-      TexturedSphere{{0.3, 0.4, 0.3}, 0.6, Colors::BLACK(), Colors::BLACK(), Colors::BLACK(), Textures::LAVA_DIFFUSE(),
-                     TextureType::DIFFUSE},
+      TexturedSphere{{-0.6, 0.7, -0.6}, 0.3, Colors::YELLOW(), Colors::BLACK(), Colors::WHITE()},
+      TexturedSphere{{0.3, 0.4, 0.3}, 0.6, Colors::CYAN(), Colors::BLACK(), Colors::WHITE()},
   };
+
+//  Scene default_scene{
+//      TexturedSphere{{0, 0, 0}, 0, Colors::BLACK() /* null_sphere */ },
+//      TexturedSphere{{-1001, 0, 0}, 1000, Colors::RED()},
+//      TexturedSphere{{1001, 0, 0}, 1000, Colors::BLUE()},
+//      TexturedSphere{{0, 0, 1001}, 1000, Colors::GRAY()},
+//      TexturedSphere{{0, 1001, 0}, 1000, Colors::GRAY()},
+//      TexturedSphere{{0, -1001, 0}, 1000, Colors::WHITE(), Colors::WHITE()},
+//      TexturedSphere{{-0.6, 0.7, -0.6}, 0.3, Colors::BLACK(), Colors::BLACK(), Colors::BLACK(),
+//                     Textures::BRICK(), TextureType::DIFFUSE},
+//      TexturedSphere{{0.3, 0.4, 0.3}, 0.6, Colors::BLACK(), Colors::BLACK(), Colors::BLACK(), Textures::LAVA_DIFFUSE(),
+//                     TextureType::DIFFUSE},
+//  };
 
 //  default_scene.GetObject(7).addTexture(Textures::BRATAN(), TextureType::EMISSIVE);
 //  Scene custom_scene_one{

@@ -10,6 +10,7 @@
 #include "../constants/colors.h"
 #include "../constants/resolutions.h"
 #include "../scene/scene.h"
+#include "../buffer/buffer.h"
 #include <cstdlib>
 #include <random>
 #include <iomanip>
@@ -40,6 +41,7 @@ class Renderer {
   void drawPixel(glm::vec2 &, glm::vec3 &);
   std::unique_ptr<T> m_color_mode;
   std::shared_ptr<U> m_resolution;
+  std::unique_ptr<Buffer<U>> m_buffer;
   std::unique_ptr<SDL_Window, void (*)(SDL_Window *)> m_window;
   std::unique_ptr<SDL_Renderer, void (*)(SDL_Renderer *)> m_window_renderer;
   SDL_Event m_window_event;
@@ -60,6 +62,7 @@ template<color_strategy T, is_resolution U>
 Renderer<T, U>::Renderer()
     : m_color_mode(std::make_unique<T>()),
       m_resolution(std::make_shared<U>()),
+      m_buffer(std::make_unique<Buffer<U>>(m_resolution)),
       m_window(std::unique_ptr<SDL_Window, void (*)(SDL_Window *)>(SDL_CreateWindow(
           "Computer Graphics",
           SDL_WINDOWPOS_CENTERED,
@@ -96,6 +99,7 @@ Renderer<T, U>::Renderer()
 template<color_strategy T, is_resolution U>
 [[maybe_unused]] Renderer<T, U>::Renderer(std::pair<int, int> size) noexcept :
     m_color_mode(std::make_unique<T>()), m_resolution(std::make_shared<U>(size)),
+    m_buffer(std::make_unique<Buffer<U>>(m_resolution)),
     m_window(std::unique_ptr<SDL_Window, void (*)(SDL_Window *)>(SDL_CreateWindow(
         "Computer Graphics",
         SDL_WINDOWPOS_CENTERED,

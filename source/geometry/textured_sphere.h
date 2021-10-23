@@ -23,12 +23,7 @@ class TexturedSphere : public Sphere {
       radius,
       color,
       emission,
-      specular),
-                                                                                                            m_tx_diffuse(
-                                                                                                                std::make_shared<
-                                                                                                                    BitmapTexture
-                                                                                                                >(
-                                                                                                                    TextureType::NONE)) {}
+      specular) {}
 
   TexturedSphere(glm::vec3 origin,
                  float radius,
