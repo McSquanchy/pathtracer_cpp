@@ -17,7 +17,7 @@ glm::vec3 Vectors::CreateEyeRay(glm::vec3 &eye_forward,
                             + glm::tan(glm::radians(v_fov / 2)) * pixel[1] * eye_up);
 }
 
-std::pair<float, float> Vectors::IntersectRay(glm::vec3 &from, glm::vec3 &to, TexturedSphere& sphere) {
+std::pair<float, float> Vectors::IntersectRay(glm::vec3 &from, glm::vec3 &to, TexturedSphere &sphere) {
   float &r = sphere.radius();
   auto CO = from - sphere.origin(); // sphere center to eye
 
@@ -36,15 +36,15 @@ std::pair<float, float> Vectors::IntersectRay(glm::vec3 &from, glm::vec3 &to, Te
   return {t1, t2};
 }
 
-std::pair<glm::vec3, TexturedSphere&> Vectors::TraceRay(Scene &scene,
-                                                                        glm::vec3 &origin,
-                                                                        glm::vec3 &direction,
-                                                                        float t_min,
-                                                                        float t_max) {
+std::pair<glm::vec3, TexturedSphere &> Vectors::TraceRay(Scene &scene,
+                                                         glm::vec3 &origin,
+                                                         glm::vec3 &direction,
+                                                         float t_min,
+                                                         float t_max) {
   float closest_t = std::numeric_limits<float>::infinity();
   auto closest_sphere = scene.elements()[0];
 
-  for (auto& shape: scene.elements()) {
+  for (auto &shape: scene.elements()) {
     if (shape.radius() == 0) {
       continue;
     }

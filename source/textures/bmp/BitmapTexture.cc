@@ -17,7 +17,7 @@ void BitmapTexture::Read(const char *fp) {
   }
 
   const int file_header_size = 14;
-  const int informationHeaderSize = 40;
+  const int info_header_size = 40;
 
   unsigned char fileHeader[file_header_size];
   f.read(reinterpret_cast<char *>(fileHeader), file_header_size);
@@ -28,31 +28,48 @@ void BitmapTexture::Read(const char *fp) {
     return;
   }
 
-  unsigned char informationHeader[informationHeaderSize];
-  f.read(reinterpret_cast<char *>(informationHeader), informationHeaderSize);
+  unsigned char information_header[info_header_size];
+  f.read(reinterpret_cast<char *>(information_header), info_header_size);
 
   m_width =
-      informationHeader[4] + (informationHeader[5] << 8) + (informationHeader[6] << 16) + (informationHeader[7] << 24);
+      information_header[4] + (information_header[5] << 8) + (information_header[6] << 16)
+          + (information_header[7] << 24);
 
   m_height =
-      informationHeader[8] + (informationHeader[9] << 8) + (informationHeader[10] << 16)
-          + (informationHeader[11] << 24);
+      information_header[8] + (information_header[9] << 8) + (information_header[10] << 16)
+          + (information_header[11] << 24);
 
-  m_colors.resize(m_width * m_height);
+  m_colors.resize(m_width * std::abs(m_height));
 
   const int paddingAmount = ((4 - (m_width * 3) % 4) % 4);
 
-  for (auto y = 0; y < m_height; ++y) {
-    for (auto x = 0; x < m_width; ++x) {
-      unsigned char color[3];
-      f.read(reinterpret_cast<char *>(color), 3);
-      auto r = static_cast<float>(glm::pow(color[2] / 255.0f, m_gamma));
-      auto g = static_cast<float>(glm::pow(color[1] / 255.0f, m_gamma));
-      auto b = static_cast<float>(glm::pow(color[0] / 255.0f, m_gamma));
-      m_colors[y * m_width + x] = glm::vec3{r, g, b};
+  if (m_height < 0) { // reverse order if m_height is negative
+    m_height *= -1;
+    for (auto y = m_height - 1; y >= 0; --y) {
+      for (auto x = 0; x < m_width; ++x) {
+        unsigned char color[3];
+        f.read(reinterpret_cast<char *>(color), 3);
+        auto r = static_cast<float>(glm::pow(color[2] / 255.0f, m_gamma));
+        auto g = static_cast<float>(glm::pow(color[1] / 255.0f, m_gamma));
+        auto b = static_cast<float>(glm::pow(color[0] / 255.0f, m_gamma));
+        m_colors[y * m_width + x] = glm::vec3{r, g, b};
+      }
+      f.ignore(paddingAmount);
     }
-    f.ignore(paddingAmount);
+  } else {
+    for (auto y = 0; y < m_height; ++y) {
+      for (auto x = 0; x < m_width; ++x) {
+        unsigned char color[3];
+        f.read(reinterpret_cast<char *>(color), 3);
+        auto r = static_cast<float>(glm::pow(color[2] / 255.0f, m_gamma));
+        auto g = static_cast<float>(glm::pow(color[1] / 255.0f, m_gamma));
+        auto b = static_cast<float>(glm::pow(color[0] / 255.0f, m_gamma));
+        m_colors[y * m_width + x] = glm::vec3{r, g, b};
+      }
+      f.ignore(paddingAmount);
+    }
   }
+
   f.close();
 }
 

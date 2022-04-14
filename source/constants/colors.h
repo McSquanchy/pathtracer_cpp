@@ -1,10 +1,12 @@
 //
 // Created by kevin on 28/09/2021.
 //
-#include <vec4.hpp>
 
-#ifndef RAYTRACER_CONSTANTS_COLORS_H_
-#define RAYTRACER_CONSTANTS_COLORS_H_
+
+#ifndef PATHTRACER_CONSTANTS_COLORS_H_
+#define PATHTRACER_CONSTANTS_COLORS_H_
+
+#include <vec3.hpp>
 
 namespace Colors {
 namespace {
@@ -25,4 +27,4 @@ namespace {
 }
 }
 
-#endif //RAYTRACER_CONSTANTS_COLORS_H_
+#endif //PATHTRACER_CONSTANTS_COLORS_H_

@@ -2,40 +2,48 @@
 // Created by kevin on 21/10/2021.
 //
 
-#ifndef RAYTRACER_SOURCE_TEXTURES_BMP_BITMAPTEXTURE_H_
-#define RAYTRACER_SOURCE_TEXTURES_BMP_BITMAPTEXTURE_H_
+#ifndef PATHTRACER_TEXTURES_BMP_BITMAPTEXTURE_H_
+#define PATHTRACER_TEXTURES_BMP_BITMAPTEXTURE_H_
 
 #include <vector>
 #include <vec3.hpp>
 
-enum class TextureType {
-  NONE  [[maybe_unused]] = 0,
-  DIFFUSE  [[maybe_unused]] = 1,
+enum class TextureType
+{
+  NONE [[maybe_unused]] = 0,
+  DIFFUSE [[maybe_unused]] = 1,
   EMISSIVE [[maybe_unused]] = 2,
-  SPECULAR  [[maybe_unused]] = 3,
+  SPECULAR [[maybe_unused]] = 3,
 };
 
-class BitmapTexture {
- public:
+class BitmapTexture
+{
+public:
   BitmapTexture() : m_type(TextureType::NONE) {}
   explicit BitmapTexture(TextureType type) : m_type(type) {}
   void Read(const char *);
-  [[maybe_unused]] void SetType(TextureType t) {
+  [[maybe_unused]] void SetType(TextureType t)
+  {
     m_type = t;
   }
   [[nodiscard]] glm::vec3 &GetColor(int x, int y);
-  [[nodiscard]] bool isDiffuse() const {
+  [[nodiscard]] bool isDiffuse() const
+  {
     return m_type == TextureType::DIFFUSE;
   }
-  [[nodiscard]] bool isEmissive() const {
+  [[nodiscard]] bool isEmissive() const
+  {
     return m_type == TextureType::EMISSIVE;
   }
-  [[nodiscard]] bool isSpecular() const {
+  [[nodiscard]] bool isSpecular() const
+  {
     return m_type == TextureType::SPECULAR;
   }
   [[nodiscard]] int Height() const { return m_height; }
   [[nodiscard]] int Width() const { return m_width; }
- private:
+
+private:
+  void Flip();
   std::vector<glm::vec3> m_colors;
   int m_width{};
   int m_height{};
@@ -43,4 +51,4 @@ class BitmapTexture {
   TextureType m_type;
 };
 
-#endif //RAYTRACER_SOURCE_TEXTURES_BMP_BITMAPTEXTURE_H_
+#endif //PATHTRACER_TEXTURES_BMP_BITMAPTEXTURE_H_

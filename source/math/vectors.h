@@ -2,11 +2,10 @@
 // Created by kevin on 11/10/2021.
 //
 
-#include "../renderer/renderer.h"
-#include "../scene/scene.h"
+#ifndef PATHTRACER_MATH_VECTORS_H_
+#define PATHTRACER_MATH_VECTORS_H_
 
-#ifndef RAYTRACER_MATH_VECTORS_H_
-#define RAYTRACER_MATH_VECTORS_H_
+#include "../scene/scene.h"
 
 class Vectors {
  public:
@@ -20,4 +19,4 @@ class Vectors {
   static glm::vec3 GenerateRandomVector(glm::vec3 &);
 };
 
-#endif //RAYTRACER_MATH_VECTORS_H_
+#endif //PATHTRACER_MATH_VECTORS_H_

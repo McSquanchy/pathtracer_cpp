@@ -2,8 +2,10 @@
 // Created by kevin on 11/10/2021.
 //
 
-#ifndef RAYTRACER_MATH_PRNG_H_
-#define RAYTRACER_MATH_PRNG_H_
+#ifndef PATHTRACER_MATH_PRNG_H_
+#define PATHTRACER_MATH_PRNG_H_
+
+#include <random>
 
 namespace PRNG {
 constexpr int seed = 42;
@@ -17,4 +19,4 @@ constexpr int seed = 42;
 
 }
 
-#endif //RAYTRACER_MATH_PRNG_H_
+#endif //PATHTRACER_MATH_PRNG_H_

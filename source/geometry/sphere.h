@@ -2,13 +2,14 @@
 // Created by kevin on 21/10/2021.
 //
 
-#ifndef RAYTRACER_GEOMETRY_SPHERE_H_
-#define RAYTRACER_GEOMETRY_SPHERE_H_
+#ifndef PATHTRACER_GEOMETRY_SPHERE_H_
+#define PATHTRACER_GEOMETRY_SPHERE_H_
 
 #include "geometry.h"
 
-class Sphere : public Geometry {
- public:
+class Sphere : public Geometry
+{
+public:
   Sphere(glm::vec3 origin, float radius, glm::vec3 color) : Geometry(origin, color), m_radius(radius) {}
   Sphere(glm::vec3 origin, float radius, glm::vec3 color, glm::vec3 emission) : Geometry(origin, color, emission),
                                                                                 m_radius(radius) {}
@@ -23,11 +24,13 @@ class Sphere : public Geometry {
   [[nodiscard]] glm::vec3 &emission() override { return m_emission; }
   [[nodiscard]] glm::vec3 &diffuse() override { return m_diffuse; }
   [[nodiscard]] glm::vec3 &specular() override { return m_specular; }
-  [[nodiscard]] glm::vec3 BDRF() override {
+  [[nodiscard]] glm::vec3 BDRF() override
+  {
     return m_diffuse / static_cast<float>(M_PI);
   }
 
-  glm::vec3 BDRF(glm::vec3 &normal, glm::vec3 &direction, glm::vec3 &random_vec) override {
+  glm::vec3 BDRF(glm::vec3 &normal, glm::vec3 &direction, glm::vec3 &random_vec) override
+  {
 
     glm::vec3 resultingColor;
 
@@ -37,22 +40,27 @@ class Sphere : public Geometry {
     float mu = 20;
     float e = 0.01f;
 
-    if (glm::dot(random_vec, reflection) > (1 - e)) {
+    if (glm::dot(random_vec, reflection) > (1 - e))
+    {
       resultingColor = diffuse() + mu * specular();
-    } else {
+    }
+    else
+    {
       resultingColor = diffuse();
     }
 
     return resultingColor / static_cast<float>(M_PI);
   }
 
-  void print(std::ostream &stream) const override {
+  void print(std::ostream &stream) const override
+  {
     stream << "Origin: [" << m_origin[0] << "," << m_origin[1] << "," << m_origin[2]
            << "] - Radius: " << m_radius << " - Color: [" << m_diffuse[0] << "," << m_diffuse[1]
            << "," << m_diffuse[2] << "," << m_diffuse[3] << "]";
   }
- protected:
+
+protected:
   float m_radius;
 };
 
-#endif //RAYTRACER_GEOMETRY_SPHERE_H_
+#endif //PATHTRACER_GEOMETRY_SPHERE_H_

@@ -2,8 +2,8 @@
 // Created by kevin on 29/09/2021.
 //
 
-#ifndef RAYTRACER_GEOMETRY_GEOMETRY_H_
-#define RAYTRACER_GEOMETRY_GEOMETRY_H_
+#ifndef PATHTRACER_GEOMETRY_GEOMETRY_H_
+#define PATHTRACER_GEOMETRY_GEOMETRY_H_
 
 #include <vec4.hpp>
 #include <vec3.hpp>
@@ -13,8 +13,9 @@
 #include <iostream>
 #include "../constants/colors.h"
 
-class Geometry {
- public:
+class Geometry
+{
+public:
   virtual ~Geometry() = default;
   [[nodiscard]] virtual glm::vec3 &origin() = 0;
   [[nodiscard]] virtual glm::vec3 &diffuse() = 0;
@@ -23,7 +24,8 @@ class Geometry {
   [[nodiscard]] virtual glm::vec3 BDRF() = 0;
   [[nodiscard]] virtual glm::vec3 BDRF(glm::vec3 &, glm::vec3 &, glm::vec3 &) = 0;
   virtual void print(std::ostream &stream) const = 0;
- protected:
+
+protected:
   glm::vec3 m_diffuse;
   glm::vec3 m_emission;
   glm::vec3 m_specular;
@@ -39,10 +41,11 @@ class Geometry {
       : m_diffuse(color), m_emission(emission), m_specular(Colors::BACKGROUND()), m_origin(origin) {}
   Geometry(glm::vec3 origin, glm::vec3 color, glm::vec3 emission, glm::vec3 specular)
       : m_diffuse(color), m_emission(emission), m_specular(specular), m_origin(origin) {}
-  friend std::ostream &operator<<(std::ostream &stream, const Geometry &geometry) {
+  friend std::ostream &operator<<(std::ostream &stream, const Geometry &geometry)
+  {
     geometry.print(stream);
     return stream;
   }
 };
 
-#endif //RAYTRACER_GEOMETRY_GEOMETRY_H_
+#endif //PATHTRACER_GEOMETRY_GEOMETRY_H_
