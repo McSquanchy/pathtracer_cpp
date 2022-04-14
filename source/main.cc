@@ -22,7 +22,7 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 
   MonteCarloRenderer<sRGB, CustomResolution> renderer({480, 480});
 
-  renderer.SetSampling(1);
+  renderer.SetSampling(4);
   renderer.SetRenderQuality(8);
   renderer.SetCamera(eye, lookAt);
   renderer.SetFOV(36);
@@ -77,7 +77,6 @@ int WinMain([[maybe_unused]] int argc, [[maybe_unused]] char *argv[]) {
 //  renderer.SetScene(custom_scene_one);
 //  renderer.SetScene(custom_scene_two);
 //  renderer.SetScene(custom_scene_three);
-  renderer.Run();
 
-  return 0;
+  renderer.Run();
 }

@@ -32,7 +32,7 @@ public:
   [[maybe_unused]] void SetScene(const Scene &);
   [[maybe_unused]] void SetCamera(const glm::vec3 &, const glm::vec3 &) noexcept;
   [[maybe_unused]] void SetFOV(float) noexcept;
-  [[maybe_unused]] void SetSampling(int);
+  [[maybe_unused]] void SetSampling(int = 1);
   [[maybe_unused]] void SetRenderQuality(int);
   [[maybe_unused]] void SetDisplayOnScreen(bool);
   [[maybe_unused]] void SetWriteToFile(bool);
