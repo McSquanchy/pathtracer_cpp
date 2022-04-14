@@ -1,10 +1,8 @@
-# Monte Carlo Pathtracer
+# Monte Carlo Path tracer
 
-
-
-![SampleImage](assets/README/mc_8192rpp_1sampling_AA_05_1635018084.bmp)
-
-
+<p align="center">
+  <img src="assets/README/mc_8192rpp_1sampling_AA_05_1635018084.bmp" alt="sample_image">
+</p>
 
 ## Features
 
